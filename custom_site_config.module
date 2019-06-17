@@ -1,0 +1,38 @@
+
+<?php 
+use Drupal\Core\Form\FormStateInterface;
+use Drupal\Core\Form\FormState;
+
+/**
+* To create custom based API_Key_Configuration site 
+* Implementing hook_form_alter().
+*/ 
+
+//site_config_form_system_site_information_settings_alter
+
+function form_site_inform_config(&$form, \Drupal\Core\Form\FormStateInterface $form_state, $form_id) {
+	$api_key = \Drupal::config('custom.site.configuration')->get('siteapikey');
+
+	//Textfield userinput of Site_API_Key 
+    $form['site_api_key'] = array(
+		'#title' => t('Site API Key'),
+		'#type' => 'textfield',
+		'#default_value' => $api_key,
+	);
+	
+    //Button name change from submit to update configuration
+    $form['actions']['submit']['#value'] = t('Update configuration');
+
+	//Handler form submission	
+    $form['#submit'][] = 'handler_site_submit';
+}
+function handler_site_submit($form, &$form_state)
+{
+	$config = \Drupal::configFactory()->getEditable('custom.site.configuration');
+    $new_api_key = $form_state->getValue(['site_api_key']);
+    $config->set('siteapikey', $new_api_key);
+    $config->save();
+    //Message to user after API Key was set
+    drupal_set_message("Saving Site API Key with value : " . $new_api_key);
+}
+?>

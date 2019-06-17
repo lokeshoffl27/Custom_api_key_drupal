@@ -1,0 +1,6 @@
+name: Site API Key in Configuration Basic Settings page
+description: Creating Custom module to add API Key to site. 
+project: 'API_Key_Site_Configuration'
+package: Custom
+type: module
+version: '8.x'
