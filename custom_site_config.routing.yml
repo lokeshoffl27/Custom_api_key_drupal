@@ -1,6 +1,6 @@
 siteconfig.content:
   path: '/json_pagetype/{api_key}/{node}'
   defaults:
-    _controller: '\Drupal\site_config\Controller\SiteConfigController::content'
+    _controller: '\Drupal\custom\site_config\Controller\CustomControllerAPI::content
   requirements:
     _permission: 'access content'
